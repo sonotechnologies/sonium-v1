@@ -66,12 +66,12 @@ export async function buyData(
 
   await prisma.$transaction(
     async (tx) => {
-      await tx.wallet.update({
-        where: {
-          id: user.wallet.id,
-        },
+     await tx.wallet.update({
+  where: {
+    id: user.wallet!.id,
+  },
 
-        data: {
+  data: {
           balance: {
             decrement:
               input.amount,
