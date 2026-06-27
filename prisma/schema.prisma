@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TransactionType {
+  DEPOSIT
+  PURCHASE
+  REFUND
+}
+
+enum TransactionStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+enum PurchaseStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+enum Network {
+  MTN
+  AIRTEL
+  GLO
+  NINEMOBILE
+}
+
+model User {
+  id           String @id @default(cuid())
+  name         String
+  email        String @unique
+  phone        String @unique
+  passwordHash String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  wallet        Wallet?
+  transactions  Transaction[]
+  dataPurchases DataPurchase[]
+}
+
+model Wallet {
+  id      String @id @default(cuid())
+  userId  String @unique
+  balance Decimal @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Transaction {
+  id        String @id @default(cuid())
+  userId    String
+
+  amount    Decimal
+  type      TransactionType
+  status    TransactionStatus
+
+  reference String @unique
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DataPurchase {
+  id          String @id @default(cuid())
+  userId      String
+
+  network     Network
+  bundleName  String
+  phoneNumber String
+
+  amount      Decimal
+  status      PurchaseStatus
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
