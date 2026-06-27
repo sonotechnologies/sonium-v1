@@ -58,7 +58,7 @@ export function RegisterForm() {
       const result = await registerUser(values);
 
       if (!result.success) {
-        setError(result.message);
+        setError(result.message ?? "Something went wrong");
 
         return;
       }
