@@ -58,8 +58,11 @@ export function BuyDataForm() {
     setSuccess("");
 
     startTransition(async () => {
-      const result =
-        await buyData(values);
+      const result = await buyData({
+  ...values,
+
+  amount: selectedBundle.amount,
+});
 
       if (!result.success) {
         setError(result.message);
