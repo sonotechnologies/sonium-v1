@@ -6,8 +6,9 @@ import { revalidatePath }
 import { auth }
   from "@/lib/auth";
 
-import { prisma }
-  from "@/lib/prisma";
+import { Network } from "@prisma/client";
+
+import { prisma } from "@/lib/prisma";
 
 interface BuyDataInput {
   network: string;
@@ -97,8 +98,7 @@ export async function buyData(
         data: {
           userId: user.id,
 
-          network:
-            input.network,
+          network: input.network as Network,
 
           bundleName:
             input.bundleName,
