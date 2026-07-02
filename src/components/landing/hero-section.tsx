@@ -14,7 +14,7 @@ export function HeroSection() {
       <div className="mx-auto grid min-h-[92vh] max-w-7xl gap-16 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-5 lg:py-16">
         <div className="flex flex-col justify-center">
           <div className="inline-flex w-fit items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700">
-            <div className="size-2 rounded-full bg-green-500" />
+            <div className="size-2 rounded-full bg-green-500" />  
             Your Personal Internet Wallet
           </div>
 

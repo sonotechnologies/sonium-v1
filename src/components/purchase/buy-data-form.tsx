@@ -51,6 +51,9 @@ export function BuyDataForm() {
     ];
   }, [selectedNetwork]);
 
+  const [selectedBundle, setSelectedBundle] =
+  useState(bundles[0]);
+
   const onSubmit = (
     values: PurchaseInput
   ) => {
