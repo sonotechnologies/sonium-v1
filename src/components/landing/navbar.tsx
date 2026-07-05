@@ -29,8 +29,8 @@ export function LandingNavbar() {
           onClick={() => setOpen(false)}
           className="flex items-center gap-3"
         >
-          <span className="flex size-9 items-center justify-center rounded-[5px] bg-ink">
-            <SignalBars className="h-[15px] text-accent" />
+          <span className="flex size-9 items-center justify-center rounded-[5px] bg-accent">
+            <SignalBars className="h-[15px] text-white" />
           </span>
           <span className="font-head text-[21px] font-bold tracking-[-0.02em]">
             Sonium
