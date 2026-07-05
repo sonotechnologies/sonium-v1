@@ -1,37 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400..800&family=Boldonse&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Bungee&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Port+Lligat+Sans&family=Stack+Sans+Headline:wght@200..700&family=Stack+Sans+Notch:wght@200..700&family=Stick+No+Bills:wght@200..800&display=swap");
 @import "tailwindcss";
 
-:root {
-  --background: #f5f7fb;
-  --foreground: #111827;
+@theme {
+  --font-display: "Anton", sans-serif;
+  --font-head: "Archivo", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --font-grotesque: "Bricolage Grotesque", sans-serif;
+  --font-label: "Port Lligat Sans", sans-serif;
 
-  --card: #ffffff;
-  --card-foreground: #111827;
+  --color-ink: #0a0a0a;
+  --color-graphite: #1a1a1a;
+  --color-steel: #6b6f76;
+  --color-mist: #f3f3f4;
+  --color-fog: #e7e7e9;
+  --color-line: #d9d9dc;
+  --color-accent: #1246b7;
+  --color-accent-hover: #0f1b9e;
+}
+/* p {
+  color: #0f1b9e;
+} */
 
-  --primary: #0f9f6e;
-  --primary-foreground: #ffffff;
+* {
+  -webkit-font-smoothing: antialiased;
+}
 
-  --secondary: #ecfdf5;
-  --secondary-foreground: #065f46;
-
-  --muted: #eef2f7;
-  --muted-foreground: #6b7280;
-
-  --border: #e5e7eb;
-
-  --radius: 1.25rem;
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  min-height: 100vh;
+  font-family: var(--font-body);
+  background: #ffffff;
+  color: var(--color-ink);
+  overflow-x: hidden;
 }
 
+/* faint oversized watermark text, like the reference */
+.watermark {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.06);
+  user-select: none;
+}
+
+p,
+h2 {
+  font-family: "Bricolage Grotesque", sans-serif;
+}
+h3,
+h4,
+h5,
+a,
 button {
-  cursor: pointer;
+  font-family: "Port Lligat Sans", sans-serif;
 }
 
-input,
-select {
-  outline: none;
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }

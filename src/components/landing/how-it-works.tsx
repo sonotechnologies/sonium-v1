@@ -1,94 +1,71 @@
-import {
-  ArrowRight,
-  LockKeyhole,
-  Wallet,
-  Zap,
-} from "lucide-react";
+"use client";
 
-const steps = [
+import { motion } from "framer-motion";
+import { stagger, inView, useReveal } from "./motion-presets";
+
+const STEPS = [
   {
-    id: 1,
-    title: "Fund your wallet",
-    description:
-      "Add money to your Sonium wallet using our secure funding options.",
-    icon: Wallet,
+    number: "01",
+    title: "Create your account",
+    body: "Sign up in under a minute — no paperwork, no waiting.",
   },
-
   {
-    id: 2,
+    number: "02",
     title: "Reserve your balance",
-    description:
-      "Your money is safely reserved for internet purchases.",
-    icon: LockKeyhole,
+    body: "Add money and set it aside for the internet. It stays ring-fenced until you spend it on data.",
   },
-
   {
-    id: 3,
-    title: "Buy data instantly",
-    description:
-      "Choose a bundle, enter your number, and get connected in seconds.",
-    icon: Zap,
+    number: "03",
+    title: "Buy data anytime",
+    body: "Choose a network and bundle, enter your number, and you're connected in seconds.",
   },
 ];
 
 export function HowItWorks() {
+  const reveal = useReveal();
+
   return (
-    <section
-      id="how-it-works"
-      className="bg-white px-4 py-20 sm:px-6 lg:px-8"
-    >
-      <div className="mx-auto max-w-7xl">
-        <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">
-            HOW IT WORKS
-          </p>
+    <section id="how" className="py-24">
+      <div className="mx-auto max-w-[1200px] px-7">
+        <motion.div variants={stagger} {...inView} className="max-w-[620px]">
+          <motion.span
+            variants={reveal}
+            className="block font-label text-xs uppercase tracking-[0.24em] text-steel"
+          >
+            Get started
+          </motion.span>
+          <motion.h2
+            variants={reveal}
+            className="mt-3.5 text-[clamp(2rem,4.4vw,3rem)] font-semibold leading-[1.06] tracking-[-0.02em]"
+          >
+            Set up in minutes.
+          </motion.h2>
+        </motion.div>
 
-          <h2 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-            Get connected in 3 simple steps
-          </h2>
-        </div>
-
-        <div className="mt-16 grid gap-8 lg:grid-cols-3">
-          {steps.map((step, index) => {
-            const Icon = step.icon;
-
-            return (
-              <div
-                key={step.id}
-                className="relative"
-              >
-                <div className="rounded-[32px] border border-slate-200 bg-white p-10 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
-                  <div className="absolute left-1/2 top-0 flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white shadow-lg">
-                    {step.id}
-                  </div>
-
-                  <div className="flex justify-center">
-                    <div className="flex size-16 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50">
-                      <Icon className="size-8 text-slate-900" />
-                    </div>
-                  </div>
-
-                  <div className="mt-8 text-center">
-                    <h3 className="text-xl font-bold text-slate-900">
-                      {step.title}
-                    </h3>
-
-                    <p className="mt-4 text-base leading-7 text-slate-500">
-                      {step.description}
-                    </p>
-                  </div>
-                </div>
-
-                {index !== steps.length - 1 && (
-                  <div className="absolute -right-5 top-1/2 hidden -translate-y-1/2 lg:block">
-                    <ArrowRight className="size-6 text-blue-500" />
-                  </div>
-                )}
+        <motion.div
+          variants={stagger}
+          {...inView}
+          className="mt-[52px] border-t border-line"
+        >
+          {STEPS.map((step) => (
+            <motion.div
+              key={step.number}
+              variants={reveal}
+              className="grid grid-cols-[auto_1fr] items-start gap-6 border-b border-line py-[34px]"
+            >
+              <span className="font-display text-[56px] leading-[0.8] text-fog">
+                {step.number}
+              </span>
+              <div>
+                <h3 className="text-[22px]">{step.title}</h3>
+                <p className="mt-2 max-w-[52ch] text-[15px] text-steel">
+                  {step.body}
+                </p>
               </div>
-            );
-          })}
-        </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
-}   
+}

@@ -1,58 +1,41 @@
-const networks = [
-  {
-    name: "MTN",
-    logo: "MTN",
-    color: "bg-yellow-400 text-black",
-  },
+import { SignalBars } from "./signal-bars";
 
-  {
-    name: "Airtel",
-    logo: "A",
-    color: "bg-red-500 text-white",
-  },
-
-  {
-    name: "Glo",
-    logo: "GLO",
-    color: "bg-green-600 text-white",
-  },
-
-  {
-    name: "9mobile",
-    logo: "9",
-    color: "bg-black text-yellow-400",
-  },
+const NETWORKS = [
+  { name: "MTN", range: "500MB – 100GB", color: "text-[#F5B301]" },
+  { name: "Airtel", range: "500MB – 100GB", color: "text-[#E01A22]" },
+  { name: "Glo", range: "1GB – 120GB", color: "text-[#12A150]" },
+  { name: "9mobile", range: "500MB – 90GB", color: "text-ink" },
 ];
 
 export function NetworksSection() {
   return (
-    <section className="bg-white px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">
-            ALL NETWORKS SUPPORTED
-          </p>
-
-          <h2 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-            Buy data from all major Nigerian networks
+    <section id="networks" className="px-6 py-20">
+      <div className="mx-auto max-w-[1180px]">
+        <div className="mx-auto max-w-[640px] text-center">
+          <span className="inline-flex items-center justify-center gap-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft">
+            <SignalBars className="h-3.5 text-accent" />
+            Supported networks
+          </span>
+          <h2 className="mt-4 font-display text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-[1.08] tracking-[-0.025em]">
+            Every major Nigerian network, one wallet
           </h2>
         </div>
 
-        <div className="mt-16 grid grid-cols-2 gap-6 md:grid-cols-4">
-          {networks.map((network) => (
+        <div className="mt-11 grid grid-cols-2 gap-3.5 md:grid-cols-4">
+          {NETWORKS.map((network) => (
             <div
               key={network.name}
-              className="rounded-[32px] border border-slate-200 bg-white p-8 text-center shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="flex flex-col gap-3.5 rounded-card border border-line bg-card p-5 transition-all hover:-translate-y-1 hover:shadow-[0_18px_40px_-28px_rgba(20,23,30,0.3)]"
             >
-              <div
-                className={`mx-auto flex size-20 items-center justify-center rounded-3xl text-xl font-bold ${network.color}`}
-              >
-                {network.logo}
+              <div className="flex items-center justify-between">
+                <span className="font-display text-xl font-bold">
+                  {network.name}
+                </span>
+                <SignalBars className={`h-5 ${network.color}`} />
               </div>
-
-              <p className="mt-5 text-lg font-semibold text-slate-900">
-                {network.name}
-              </p>
+              <span className="font-mono text-[11px] text-ink-soft">
+                {network.range}
+              </span>
             </div>
           ))}
         </div>

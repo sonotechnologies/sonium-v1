@@ -1,115 +1,88 @@
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaTwitter,
-} from "react-icons/fa";
+"use client";
 
-import { Send } from "lucide-react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { SignalBars } from "./signal-bars";
+import { stagger, inView, useReveal } from "./motion-presets";
+
+const COLUMNS = [
+  {
+    heading: "Product",
+    links: ["Features", "How it works", "Buy data", "Wallet"],
+  },
+  { heading: "Company", links: ["About", "Blog", "Careers", "Contact"] },
+  { heading: "Support", links: ["Help center", "FAQ", "Terms", "Privacy"] },
+];
 
 export function Footer() {
-  return (
-    <footer className="bg-[#020b3d] px-4 py-16 text-white sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr_1fr_1fr_1.2fr]">
-          <div>
-            <div className="flex items-center gap-3">
-              <div className="flex size-11 items-center justify-center rounded-2xl bg-blue-600 font-bold">
-                S
-              </div>
+  const reveal = useReveal();
 
-              <span className="text-2xl font-bold">
+  return (
+    <footer className="relative overflow-hidden border-t border-line pb-10 pt-16">
+      <div className="mx-auto max-w-[1200px] px-7">
+        <motion.div
+          variants={stagger}
+          {...inView}
+          className="grid grid-cols-1 gap-9 md:grid-cols-[1.6fr_1fr_1fr_1.4fr]"
+        >
+          <motion.div variants={reveal}>
+            <Link href="/" className="flex items-center gap-3">
+              <span className="flex size-9 items-center justify-center rounded-[5px] bg-ink">
+                <SignalBars className="h-[15px] text-accent" />
+              </span>
+              <span className="font-head text-[21px] font-bold tracking-[-0.02em]">
                 Sonium
               </span>
-            </div>
-
-            <p className="mt-6 max-w-xs leading-7 text-blue-100">
-              Your personal internet wallet. Reserve.
-              Buy. Stay connected.
+            </Link>
+            <p className="mt-4 max-w-[30ch] text-sm text-steel">
+              Your personal internet wallet. Reserve. Buy. Stay connected.
             </p>
-
-            <div className="mt-6 flex items-center gap-3">
-              {[
-                FaFacebookF,
-                FaTwitter,
-                FaInstagram,
-                FaLinkedinIn,
-              ].map((Icon, index) => (
-                <button
-                  key={index}
-                  className="flex size-10 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20"
-                >
-                  <Icon className="size-4" />
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold">
-              Product
-            </h3>
-
-            <ul className="mt-6 space-y-4 text-blue-100">
-              <li>Features</li>
-              <li>How It Works</li>
-              <li>Buy Data</li>
-              <li>Wallet</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold">
-              Company
-            </h3>
-
-            <ul className="mt-6 space-y-4 text-blue-100">
-              <li>About Us</li>
-              <li>Blog</li>
-              <li>Careers</li>
-              <li>Contact Us</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold">
-              Support
-            </h3>
-
-            <ul className="mt-6 space-y-4 text-blue-100">
-              <li>Help Center</li>
-              <li>FAQs</li>
-              <li>Terms of Service</li>
-              <li>Privacy Policy</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold">
-              Stay updated
-            </h3>
-
-            <p className="mt-5 leading-7 text-blue-100">
-              Get tips, offers and updates delivered to your
-              inbox.
-            </p>
-
-            <div className="mt-6 flex overflow-hidden rounded-2xl border border-white/10 bg-white/10">
+            <div className="mt-[18px] flex max-w-[320px] overflow-hidden rounded-[6px] border border-line">
               <input
                 type="email"
-                placeholder="Enter your email"
-                className="h-14 flex-1 bg-transparent px-5 text-white placeholder:text-blue-200 outline-none"
+                placeholder="you@email.com"
+                aria-label="Email address"
+                className="h-[46px] flex-1 px-3.5 text-sm outline-none"
               />
-
-              <button className="flex w-16 items-center justify-center bg-blue-600">
-                <Send className="size-5" />
+              <button
+                type="button"
+                aria-label="Subscribe"
+                className="flex w-[52px] items-center justify-center bg-ink text-white transition-colors hover:bg-graphite"
+              >
+                <ArrowRight className="size-4" />
               </button>
             </div>
-          </div>
+          </motion.div>
+
+          {COLUMNS.map((column) => (
+            <motion.div key={column.heading} variants={reveal}>
+              <h5 className="font-label text-[13px] uppercase tracking-[0.14em] text-steel">
+                {column.heading}
+              </h5>
+              <ul className="mt-4 flex flex-col gap-3">
+                {column.links.map((link) => (
+                  <li key={link}>
+                    <a
+                      href="#"
+                      className="text-[15px] text-steel transition-colors hover:text-ink"
+                    >
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <div className="watermark mt-12 select-none text-[clamp(90px,18vw,220px)] leading-[0.7]">
+          SONIUM
         </div>
 
-        <div className="mt-16 border-t border-white/10 pt-8 text-sm text-blue-200">
-          © 2025 Sonium. All rights reserved.
+        <div className="mt-6 flex flex-wrap justify-between gap-3 border-t border-line pt-6 font-label text-[13px] text-steel">
+          <span>© 2026 Sonium. All rights reserved.</span>
+          <span>Built in Lagos, Nigeria</span>
         </div>
       </div>
     </footer>

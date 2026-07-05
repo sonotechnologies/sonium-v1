@@ -1,54 +1,111 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { SignalBars } from "./signal-bars";
+
+const NAV_LINKS = [
+  { label: "How it works", href: "#how" },
+  { label: "Networks", href: "#networks" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Pricing", href: "/pricing" },
+];
 
 export function LandingNavbar() {
-  return (
-    <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="flex size-11 items-center justify-center rounded-2xl bg-blue-600 text-xl font-bold text-white shadow-lg">
-            S
-          </div>
+  const [open, setOpen] = useState(false);
 
-          <span className="text-2xl font-bold tracking-tight text-gray-900">
+  return (
+    <motion.header
+      initial={{ opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="sticky top-0 z-50 border-b border-line bg-white/85 backdrop-blur-xl"
+    >
+      <div className="mx-auto flex h-[76px] max-w-[1200px] items-center justify-between px-7">
+        <Link
+          href="/"
+          onClick={() => setOpen(false)}
+          className="flex items-center gap-3"
+        >
+          <span className="flex size-9 items-center justify-center rounded-[5px] bg-ink">
+            <SignalBars className="h-[15px] text-accent" />
+          </span>
+          <span className="font-head text-[21px] font-bold tracking-[-0.02em]">
             Sonium
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-10 lg:flex">
-          {[
-            "Home",
-            "Features",
-            "How It Works",
-            "About",
-            "FAQ",
-          ].map((item) => (
-            <button
-              key={item}
-              className="text-sm font-semibold text-gray-600 transition hover:text-blue-600"
+        <nav className="hidden items-center gap-9 lg:flex">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-[15px] text-steel transition-colors hover:text-ink"
             >
-              {item}
-            </button>
+              {link.label}
+            </a>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 sm:flex">
-          <Link
+        <div className="flex items-center gap-3.5">
+          <a
             href="/login"
-            className="rounded-2xl border border-gray-200 px-5 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
+            className="hidden text-[15px] text-steel transition-colors hover:text-ink md:inline"
           >
             Log in
-          </Link>
-
+          </a>
           <Link
             href="/register"
-            className="rounded-2xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-200 transition hover:bg-blue-700"
+            className="hidden h-11 items-center rounded-[4px] bg-accent px-5 text-sm text-ink transition-colors hover:bg-accent-hover md:flex"
           >
-            Sign up
+            Create account
           </Link>
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((value) => !value)}
+            className="flex size-11 items-center justify-center rounded-[4px] border border-line text-ink md:hidden"
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
         </div>
       </div>
-    </header>
+
+      {open && (
+        <div className="border-t border-line bg-white px-7 py-4 md:hidden">
+          <nav className="flex flex-col">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="border-b border-line py-3.5 text-[15px] text-steel"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+          <div className="mt-4 flex flex-col gap-2.5">
+            <Link
+              href="/login"
+              onClick={() => setOpen(false)}
+              className="flex h-11 items-center justify-center rounded-[4px] border border-line text-sm text-white"
+            >
+              Log in
+            </Link>
+            <Link
+              href="/register"
+              onClick={() => setOpen(false)}
+              className="flex h-11 items-center justify-center rounded-[4px] bg-accent text-sm text-ink"
+            >
+              Create account
+            </Link>
+          </div>
+        </div>
+      )}
+    </motion.header>
   );
 }
